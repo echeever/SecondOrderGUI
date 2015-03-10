@@ -175,17 +175,10 @@ makePlots(handles);
 
 % --- Outputs from this function are returned to the command line.
 function varargout = SecondOrderGUI_OutputFcn(~, ~, handles)
-% varargout  cell array for returning output args (see VARARGOUT);
-% hObject    handle to figure
-% ~  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Get default command line output from handles structure
 varargout{1} = handles.output;
 
 
 
-% --------------------------------------------------------------------
 function ChooseFunc_Callback(~, ~, ~)
 
 % --------------------------------------------------------------------
@@ -237,6 +230,8 @@ text(0.5,0.5,['$ H_{' ftype '}(s) = ' s '$'],...
 function ChooseHelp_Callback(~, ~, ~)
 
 function ChooseUsing_Callback(~, ~, ~)
+web('http://www.swarthmore.edu/NatSci/echeeve1/Ref/2ndOrderGUI/',...
+    '-browser');
 
 function cbz1_Callback(hObject, ~, handles)
 selectZeta(hObject,handles);
@@ -277,10 +272,6 @@ end
 handles.cbzOther.String = num2str(myNum);
 hObject.String = num2str(myNum);
 makePlots(handles);
-
-
-
-
 
 function editzOther_CreateFcn(hObject, ~, ~)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
@@ -354,21 +345,8 @@ guidata(hObject, handles);  % Updata handles.
 makePlots(handles);
 
 
-% If you make a GUI in GUIDE, by default the toolbar and menubar are hidden. You can make them visible by setting the 'MenuBar' and 'Toolbar' properties of your GUI figure:
-%
-% set(h,'toolbar','figure');
-% set(h,'menubar','figure');
-% where h is the handle to your figure.
-
-%  Also see "zoom"
-
-
 % --------------------------------------------------------------------
 function menuOptions_Callback(~, ~, ~)
-% hObject    handle to menuOptions (see GCBO)
-% ~  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
 
 % --------------------------------------------------------------------
 function menuAllowMult_Callback(hObject, ~, handles)
@@ -472,6 +450,7 @@ else
 end
 
 
+% --------------------------------------------------------------------
 function makePlots(handles)
 plotPZ(handles);
 if isequal(handles.menuPlotStep.Checked,'on'),
@@ -484,12 +463,14 @@ if isequal(handles.menuPlotBode.Checked,'on'),
     plotBode(handles)
 end
 
+% --------------------------------------------------------------------
 function c = myColor(handles,i,j)
 c = hsv2rgb([handles.zHord(i) handles.wSord(j) handles.wVord(j)]);
 if i==length(handles.zcb)
     c = hsv2rgb([handles.zHord(i) handles.wSord(j) 0]);
 end
 
+% --------------------------------------------------------------------
 function [n,d]=getND(handles,zeta,w0)
 d=[1 2*zeta*w0 w0*w0];
 if isequal(handles.ChooseLP.Checked,'on')
@@ -502,6 +483,7 @@ else
     n=[1 0 w0*w0];
 end
 
+% --------------------------------------------------------------------
 function plotPZ(handles)
 axes(handles.axPZ);  cla;
 for i=1:length(handles.zcb),
@@ -535,6 +517,7 @@ else
 end
 hold off
 
+% --------------------------------------------------------------------
 function plotStep(handles)
 handles.axStep.Visible='on';
 axes(handles.axStep);  cla;
@@ -565,6 +548,7 @@ else
 end
 hold off
 
+% --------------------------------------------------------------------
 function plotImpulse(handles)
 handles.axImpulse.Visible='on';
 axes(handles.axImpulse);  cla;
@@ -613,6 +597,7 @@ else
 end
 hold off
 
+% --------------------------------------------------------------------
 function plotBode(handles)
 handles.axBodeMag.Visible='on';
 cla(handles.axBodeMag);
