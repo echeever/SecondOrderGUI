@@ -65,12 +65,12 @@ text(0.5,0.5,'$\zeta$',...
     'Interpreter','Latex','FontSize',14,'HorizontalAlignment','center');
 
 axes(handles.axOmega);  axis('off');
-text(0.5,0.5,'$\omega_0^2$',...
+text(0.5,0.5,'$\omega_0$',...
     'Interpreter','Latex','FontSize',14,'HorizontalAlignment','center');
 waitbar(0.1,wbh);
 
 DisplayFunction(handles, 'Lowpass', ...
-    '\frac{\omega_0^2}{s^2+2\zeta\omega_0+\omega_0^2}');
+    '\frac{\omega_0^2}{s^2+2\zeta\omega_0s+\omega_0^2}');
 ChooseFunction(handles.ChooseLP,handles);
 
 handles.uiPanelStep.Title = ...
@@ -185,28 +185,28 @@ function ChooseFunc_Callback(~, ~, ~)
 function ChooseLP_Callback(hObject, ~, handles)
 ChooseFunction(hObject, handles);
 DisplayFunction(handles, 'Lowpass', ...
-    '\frac{\omega_0^2}{s^2+2\zeta\omega_0+\omega_0^2}');
+    '\frac{\omega_0^2}{s^2+2\zeta\omega_0s+\omega_0^2}');
 makePlots(handles);
 
 % --------------------------------------------------------------------
 function ChooseHP_Callback(hObject, ~, handles)
 ChooseFunction(hObject, handles);
 DisplayFunction(handles, 'Highpass', ...
-    '\frac{s^2}{s^2+2\zeta\omega_0+\omega_0^2}');
+    '\frac{s^2}{s^2+2\zeta\omega_0s+\omega_0^2}');
 makePlots(handles);
 
 % --------------------------------------------------------------------
 function ChooseBP_Callback(hObject, ~, handles)
 ChooseFunction(hObject, handles);
 DisplayFunction(handles, 'Bandpass', ...
-    '\frac{2\zeta\omega_0}{s^2+2\zeta\omega_0+\omega_0^2}');
+    '\frac{2\zeta\omega_0s}{s^2+2\zeta\omega_0s+\omega_0^2}');
 makePlots(handles);
 
 % --------------------------------------------------------------------
 function ChooseBR_Callback(hObject, ~, handles)
 ChooseFunction(hObject, handles);
 DisplayFunction(handles, 'Notch', ...
-    '\frac{s^2+\omega_0^2}{s^2+2\zeta\omega_0+\omega_0^2}');
+    '\frac{s^2+\omega_0^2}{s^2+2\zeta\omega_0s+\omega_0^2}');
 makePlots(handles);
 
 function ChooseFunction(hObject, handles)
@@ -538,7 +538,7 @@ for i=1:length(handles.zcb),
     end
 end
 axis([-1 Tfinal -0.8 1.8]);
-xlabel('Time');  ylabel('h(t)');
+xlabel('Time');  ylabel('y_\gamma(t)');
 set(gca,'Color',(1+handles.grey)/2);
 if isequal(handles.menuGrids.Checked,'on'),
     grid on;
@@ -587,7 +587,7 @@ else
     axis([-1 Tfinal -2 2.5]);
 end
 
-xlabel('Time');  ylabel('y_\gamma(t)');
+xlabel('Time');  ylabel('h(t)');
 set(gca,'Color',(1+handles.grey)/2);
 if isequal(handles.menuGrids.Checked,'on'),
     grid on;
